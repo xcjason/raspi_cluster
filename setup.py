@@ -2,11 +2,17 @@
 __author__ = 'jason'
 
 from distutils.core import setup
+from socket import gethostname
+
+hostname = gethostname()
+
+host = 'jason' if hostname == 'ubuntu' else 'pi'
+host_dir = '/home/{0}/bin/'.format(host)
 
 setup(
-    name='cluster_proj',
+    name='cluster',
     version='0.1',
     author='Cong Xu',
-    packages=['cluster', 'cluster.utils'],
-    data_files=['config.yml'],
+    packages=('cluster', 'cluster.utils'),
+    data_files=[(host_dir, ['cluster_config.yml']), ],
 )
