@@ -1,6 +1,10 @@
 import logging
+from socket import gethostname
 
-LOGGING_FILE = '/home/jason/log/distributed_proj.log'
+hostname = gethostname()
+
+host = 'jason' if hostname == 'ubuntu' else 'pi'
+LOGGING_FILE = '/home/{0}/log/distributed_proj.log'.format(host)
 FORMAT = '%(asctime)-15s %(message)s'
 
 
