@@ -4,7 +4,6 @@ import time
 import threading
 import socket
 from utils.logging_util import get_logger
-from cluster.heart_beat import HeartBeat
 from cluster import CONFIG
 
 HEARTBEAT_PERIOD = CONFIG['heart_beat_period']
@@ -16,9 +15,9 @@ class Consumer(object):
     def __init__(self):
         self._logger = get_logger('Consumer')
         self._logger.info("Consumer {0} started".format(socket.gethostname()))
+        self._status = True
         self._heart_beater = threading.Thread(target=self.send_heart_beat, args=())
         self._heart_beater.start()
-        self._status = True
         self.job_list = {}
 
     def send_heart_beat(self):
