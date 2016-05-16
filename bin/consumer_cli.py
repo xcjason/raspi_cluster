@@ -3,7 +3,7 @@
 import time
 import threading
 import socket
-from utils.logging_util import get_logger
+from cluster.utils.logging_util import get_logger
 from cluster import CONFIG
 
 HEARTBEAT_PERIOD = CONFIG['heart_beat_period']
