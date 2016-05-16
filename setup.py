@@ -14,5 +14,6 @@ setup(
     version='0.1',
     author='Cong Xu',
     packages=('cluster', 'cluster.utils'),
+    scripts=('bin/cluster_cli.py', 'bin/cluster', 'bin/consumer_cli.py', 'bin/producer_cli.py'),
     data_files=[(host_dir, ['cluster_config.yml']), ],
 )

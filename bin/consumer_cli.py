@@ -18,10 +18,10 @@ class Consumer(object):
         self._logger.info("Consumer {0} started".format(socket.gethostname()))
         self._heart_beater = threading.Thread(target=self.send_heart_beat, args=())
         self._heart_beater.start()
+        self._status = True
         self.job_list = {}
 
     def send_heart_beat(self):
-        self._status = True
         self._logger.info("Heartbeat Start!")
         while self._status:
             skt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
