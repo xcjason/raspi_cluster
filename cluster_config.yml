@@ -7,3 +7,4 @@ machine_list:
     pi03: 192.168.0.115
 
 heart_beat_period: 2
+port: 10096
