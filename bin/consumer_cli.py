@@ -10,9 +10,7 @@ import zmq
 HEARTBEAT_PERIOD = CONFIG['heart_beat_period']
 MASTER_ADDR = CONFIG['machine_list']['master'].values()[0]
 PORT = CONFIG['port']
-# ADDR_STR = 'tcp://{0}:{1}'.format(MASTER_ADDR, PORT)
-ADDR_STR = 'tcp://127.0.0.1:{0}'.format(PORT)
-import pdb
+ADDR_STR = 'tcp://{0}:{1}'.format(MASTER_ADDR, PORT)
 
 
 class Consumer(object):
@@ -25,6 +23,7 @@ class Consumer(object):
         self._skt = self._ctx.socket(zmq.PUSH)
         self._skt.connect(ADDR_STR)
         self._heart_beater = threading.Thread(target=self.send_heart_beat, args=())
+        self._heart_beater.daemon = True
         self._heart_beater.start()
         self.job_list = {}
 
@@ -40,7 +39,7 @@ class Consumer(object):
                 self._skt.send_json(beat_info)
                 self._logger.info("Heartbeat sent from {0}".format(socket.gethostname()))
             except:
-                pass
+                self._logger.error("Failed to send Heartbeat!")
             time.sleep(HEARTBEAT_PERIOD)
 
     def stop(self):
@@ -54,5 +53,5 @@ class Consumer(object):
 if __name__ == '__main__':
     print 'start'
     consumer = Consumer()
-    time.sleep(10)
+    time.sleep(20)
     consumer.stop()
