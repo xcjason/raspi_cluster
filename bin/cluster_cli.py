@@ -39,7 +39,6 @@ def main():
     count = len(all_machine_ips)
     proc_pool = multiprocessing.Pool(processes=count)
     args = [{'ip': ip_addr, 'args': sys.argv[2:]} for ip_addr in all_machine_ips]
-    import pdb; pdb.set_trace()
     proc_pool.map(func, args)
     proc_pool.close()
 
